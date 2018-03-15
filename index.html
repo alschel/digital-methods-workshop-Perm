@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Perm Buildings Age Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    .map-overlay {
+        position: absolute;
+        width: 180px;
+        top: 0;
+        left: 10px;
+        padding: 10px;
+        margin-left: 5px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        margin-right: 5px;
+        z-index: 1;
+    }
+    </style>
+  </head>
+  <body>
+    <div id='map'></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxzY2hlbCIsImEiOiI0MGQxMGFmY2ViZTBhMjk5NDA1YTg2NzIxZjQyZWE2ZSJ9.LiQjz2oMBtEEPbhjGV-ogw';
+    /*var bounds = [
+        [-75.04728500751165, 39.68392799015035],
+        [-72.91058699000139, 41.87764500765852]
+    ];*/
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/dark-v9',
+        center: [56.229398, 58.010374],
+        zoom: 10,
+        minZoom: 9,
+        maxZoom: 18,
+        pitch: 0,
+        //maxBounds: bounds
+    });
+
+    map.on('load', function() {
+      map.addSource('perm-buildings', {
+            type: 'geojson',
+            data: 'https://rawgit.com/alschel/perm-buildings-age-map/master/perm_buildings.geojson',
+            buffer: 0,
+            maxzoom: 12
+        });
+      map.addLayer({
+          'id': 'perm',
+          'type': 'circle',
+          'source': 'perm-buildings',
+          'paint': {
+              'circle-color': {
+                  property: 'year',
+                  type: 'interval',
+                  stops: [
+                      [1920, 'orange'],
+                      [1950, 'red'],
+                      [1980, 'blue']
+                  ]
+              },
+              'circle-radius': 5,
+              'circle-opacity': 0.8,
+              'circle-blur': 0.5
+          },
+      });
+    });
+/*
+    function init() {
+      map.addSource('perm-buidings', {
+            type: 'geojson',
+            data: 'https://www.dropbox.com/s/p7uhlmemc4rjwfn/perm_buildings.geojson?dl=0',
+            buffer: 0,
+            maxzoom: 12
+        });
+      map.addLayer({
+          'id': 'perm-build',
+          'type': 'circle',
+          'source': 'perm-buidings',
+          'paint': {
+              'circle-color': {
+                  property: 'year',
+                  type: 'interval',
+                  stops: [
+                      [1950, 'orange'],
+                      [2000, 'red']
+                  ]
+              },
+              'circle-radius': 3,
+              'circle-opacity': 0.8,
+              'circle-blur': 0.5
+          },
+          //'filter': ['>=', 'CYC_INJ', 1]
+      }, 'waterway-label');
+    };
+    map.once('style.load', function(e) {
+      init();
+    });*/
+
+    </script>
+  </body>
+</html>
