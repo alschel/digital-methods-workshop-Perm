@@ -52,13 +52,31 @@
     });
 
     map.on('load', function() {
-      map.addSource('perm-buildings', {
+      /*map.addSource('perm-buildings', {
             type: 'geojson',
             data: 'data/perm_buildings.geojson',
             buffer: 0,
             maxzoom: 12
-        });
+        });*/
       map.addLayer({
+        'id': 'buildings_age',
+        'type': 'fill',
+        'source': {
+          'type': 'geojson',
+          'data': 'data/perm_buildings_osm-year.geojson'
+        },
+        'layout': {},
+        'paint': {
+           'fill-color': '#BCDF27',
+           'fill-opacity': 0.8
+         };
+       /*map.addSource('perm-buildings', {
+           type: 'geojson',
+           data: 'data/perm_buildings.geojson',
+           buffer: 0,
+           maxzoom: 12
+       });
+       map.addLayer({
           'id': 'perm',
           'type': 'circle',
           'source': 'perm-buildings',
@@ -85,7 +103,7 @@
               'circle-opacity': 0.8,
               'circle-blur': 0.5
           },
-      });
+      });*/
     });
 /*
     function init() {

@@ -8,6 +8,8 @@
 
 # libraries
 
+library(sp)
+library(rgdal)
 library(rvest)
 library(dplyr)
 library(stringr)
@@ -107,3 +109,28 @@ perm_buildings_geocoded %>%
 
 # Save the results in csv file
 write_csv(perm_buildings_geocoded, "data/perm_buildings_geocoded.csv")
+
+
+# ============================
+# 3. Working with polygon data
+# ============================
+
+# We downloaded OSM spatial polygond data.
+# Now we need to combine osm polygons with "year" and "address" data from points 
+
+# 3.1. Read the data
+points <- readOGR("data/perm_buildings.geojson") # geocoded points
+polygons <- readOGR("data/OSM-data.geojson")     # osm polygons
+
+# 3.2. Join polygons with data 
+# Extract data from points overlaying over polygons 
+points_data <- over(polygons, points[,c("address", "year")])
+# Assign data to polygons attribute dataframe
+polygons@data$year <- points_data$year
+polygons@data$address <- points_data$address
+# Remove buildings with NA year
+perm_buildings_osm_year <- polygons[!is.na(polygons@data$year), ]
+
+# 3.3. Save SpatilaPolygonsDataFrame as GeoJSON file
+writeOGR(perm_buildings_osm_year, "data/perm_buildings_osm-year.geojson", 
+         layer = "perm_buildings_osm-year.geojson", driver = "GeoJSON", overwrite_layer = T)
