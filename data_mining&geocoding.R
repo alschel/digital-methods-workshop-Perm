@@ -1,4 +1,4 @@
-# Building Age Map of Perm
+# Buildings Age Map of Perm
 
 # Author: Alexander Sheludko, Institute of Geography, RAS
 # Date: 14 March 2018
