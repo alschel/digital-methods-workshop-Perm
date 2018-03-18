@@ -52,14 +52,9 @@
     });
 
     map.on('load', function() {
-      /*map.addSource('perm-buildings', {
-            type: 'geojson',
-            data: 'data/perm_buildings.geojson',
-            buffer: 0,
-            maxzoom: 12
-        });*/
 
-
+      // If we just add the layer, it will cover all the labels.
+      // To add layers below labels, first, let's create an arrow of label layers from the default style
       var layers = map.getStyle().layers;
       // Find the index of the first symbol layer in the map style
       var firstSymbolId;
@@ -70,6 +65,7 @@
           }
       };
 
+      // Add layer with buildings
       map.addLayer({
         'id': 'buildings_age',
         'type': 'fill',
@@ -98,74 +94,47 @@
            },
            'fill-opacity': 0.8
          },
+    // AddLayer method takes 2 arguments: the layer as an object, and a string
+    // representing another layer's name. if the other layer
+    // exists in the stylesheet already, the new layer will be positioned
+    // right before that layer in the stack, making it possible to put
+    // 'overlays' anywhere in the layer stack.
+    // Insert the layer beneath the first symbol layer.
        }, firstSymbolId);
-
-       /*map.addSource('perm-buildings', {
-           type: 'geojson',
-           data: 'data/perm_buildings.geojson',
-           buffer: 0,
-           maxzoom: 12
-       });
-       map.addLayer({
-          'id': 'perm',
-          'type': 'circle',
-          'source': 'perm-buildings',
-          'paint': {
-              'circle-color': {
-                  property: 'year',
-                  type: 'interval',
-                  stops: [
-                    // use viridis color palette
-                      [0, '#FDE725'],
-                      [1920, '#BCDF27'],
-                      [1930, '#7AD151'],
-                      [1940, '#43BF71'],
-                      [1950, '#22A884'],
-                      [1960, '#21908C'],
-                      [1970, '#2A788E'],
-                      [1980, '#35608D'],
-                      [1990, '#414487'],
-                      [2000, '#482576'],
-                      [2010, '#440154']
-                  ]
-              },
-              'circle-radius': 4,
-              'circle-opacity': 0.8,
-              'circle-blur': 0.5
-          },
-      });*/
     });
-/*
-    function init() {
-      map.addSource('perm-buidings', {
-            type: 'geojson',
-            data: 'https://www.dropbox.com/s/p7uhlmemc4rjwfn/perm_buildings.geojson?dl=0',
-            buffer: 0,
-            maxzoom: 12
-        });
-      map.addLayer({
-          'id': 'perm-build',
-          'type': 'circle',
-          'source': 'perm-buidings',
-          'paint': {
-              'circle-color': {
-                  property: 'year',
-                  type: 'interval',
-                  stops: [
-                      [1950, 'orange'],
-                      [2000, 'red']
-                  ]
-              },
-              'circle-radius': 3,
-              'circle-opacity': 0.8,
-              'circle-blur': 0.5
-          },
-          //'filter': ['>=', 'CYC_INJ', 1]
-      }, 'waterway-label');
-    };
-    map.once('style.load', function(e) {
-      init();
-    });*/
+
+    // Popups
+    // Create a popup, but don't add it to the map yet.
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    map.on('mouseenter', 'places', function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = '<h3>' + e.features[0].properties.address + '</h3><p>' + e.features[0].properties.year + '</p>';
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    map.on('mouseleave', 'places', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
 
     </script>
   </body>
