@@ -117,7 +117,7 @@
 
         // Create an array of all the features from the layer
         var features = map.queryRenderedFeatures(e.point, {
-          layers: ['layer-name-here'] // replace this with the name of the layer
+          layers: ['buildings_age'] // replace this with the name of the layer
         });
         if (!features.length) {
           return;
