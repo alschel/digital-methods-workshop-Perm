@@ -115,9 +115,9 @@
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
 
-        // Create an array of all the features from the layer
+        /*// Create an array of all the features from the layer
         var features = map.queryRenderedFeatures(e.point, {
-          layers: ['buildings_age'] // replace this with the name of the layer
+          layers: ['buildings_age']
         });
         if (!features.length) {
           return;
@@ -127,6 +127,7 @@
         var feature = features[0];
         // Create popup text
         var description = '<h3>' + feature.properties.address + '</h3><p>' + feature.properties.year + '</p>';
+*/
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -138,7 +139,7 @@
         // Populate the popup and set its coordinates
         // based on the feature found.
         popup.setLngLat(e.lngLat)
-            .setHTML(description)
+            .setHTML('<h3>' + e.features[0].properties.address + '</h3><p>' + e.features[0].properties.year + '</p>')
             .addTo(map);
     });
 
