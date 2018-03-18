@@ -139,7 +139,7 @@
         // Populate the popup and set its coordinates
         // based on the feature found.
         popup.setLngLat(e.lngLat)
-            .setHTML('<h3>' + e.features[0].properties.address + '</h3><p>' + e.features[0].properties.year + '</p>')
+            .setHTML(e.features[0].properties.address)
             .addTo(map);
     });
 
