@@ -47,7 +47,7 @@
         zoom: 10,
         minZoom: 9,
         maxZoom: 18,
-        pitch: 0,
+        pitch: 0
         //maxBounds: bounds
     });
 
@@ -119,9 +119,9 @@
         var features = map.queryRenderedFeatures(e.point, {
           layers: ['buildings_age'] // replace this with the name of the layer
         });
-        /*if (!features.length) {
+        if (!features.length) {
           return;
-        }*/
+        }
         // Select the first feature
         var feature = features[0];
 
