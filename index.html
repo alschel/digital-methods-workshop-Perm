@@ -127,7 +127,7 @@
 
         // Create coordinates and popup text
         var coordinates = feature.geometry.coordinates.slice();
-        var description = '<h3>' + feature.address + '</h3><p>' + feature.year + '</p>';
+        var description = '<h3>' + feature.properties.address + '</h3><p>' + feature.properties.year + '</p>';
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
