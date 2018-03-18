@@ -128,14 +128,6 @@
         // Create popup text
         var description = '<h3>' + feature.properties.address + '</h3><p>' + feature.properties.year + '</p>';
 
-
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        /*while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }*/
-
         // Populate the popup and set its coordinates
         // based on the feature found.
         popup.setLngLat(e.lngLat)
