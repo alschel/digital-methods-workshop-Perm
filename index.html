@@ -105,16 +105,21 @@
 
     // Popups
     // Create a popup, but don't add it to the map yet.
-    var popup = new mapboxgl.Popup({
+    /*var popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false
-    });
+    });*/
 
     // Add eventListener: 1st arg - type of eventListener, 2nd - layer id, 3d - function
     map.on('mouseenter', 'buildings_age', function(e) {
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(e.features[0].properties.address)
+            .addTo(map);
 
+/*
         // Create an array of all the features from the layer
         var features = map.queryRenderedFeatures(e.point, {
           layers: ['buildings_age'] // replace this with the name of the layer
@@ -141,7 +146,7 @@
         // based on the feature found.
         popup.setLngLat(coordinates)
             .setHTML(description)
-            .addTo(map);
+            .addTo(map);*/
     });
 
     // Add eventListener: change cursor back and remove popup
