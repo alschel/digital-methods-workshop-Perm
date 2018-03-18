@@ -119,9 +119,9 @@
         var features = map.queryRenderedFeatures(e.point, {
           layers: ['buildings_age'] // replace this with the name of the layer
         });
-        if (!features.length) {
+        /*if (!features.length) {
           return;
-        }
+        }*/
         // Select the first feature
         var feature = features[0];
 
