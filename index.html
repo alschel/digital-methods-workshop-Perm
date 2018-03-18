@@ -119,7 +119,6 @@
             .setHTML(e.features[0].properties.address)
             .addTo(map);
 
-/*
         // Create an array of all the features from the layer
         var features = map.queryRenderedFeatures(e.point, {
           layers: ['buildings_age'] // replace this with the name of the layer
@@ -127,13 +126,11 @@
         if (!features.length) {
           return;
         }
+
         // Select the first feature
         var feature = features[0];
-
-        // Create coordinates and popup text
-        var coordinates = feature.geometry.coordinates.slice();
-        var description = '<h3>Try crap</h3><p>more crap</p>';
-        //var description = '<h3>' + feature.properties.address + '</h3><p>' + feature.properties.year + '</p>';
+        // Create popup text
+        var description = '<h3>' + feature.properties.address + '</h3><p>' + feature.properties.year + '</p>';
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -144,9 +141,9 @@
 
         // Populate the popup and set its coordinates
         // based on the feature found.
-        popup.setLngLat(coordinates)
+        popup.setLngLat(e.lngLat)
             .setHTML(description)
-            .addTo(map);*/
+            .addTo(map);
     });
 
     // Add eventListener: change cursor back and remove popup
