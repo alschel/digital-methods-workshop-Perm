@@ -110,6 +110,7 @@
         closeOnClick: false
     });
 
+    // Add eventListener: 1st arg - type of eventListener, 2nd - layer id, 3d - function
     map.on('mouseenter', 'buildings_age', function(e) {
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
@@ -131,6 +132,7 @@
             .addTo(map);
     });
 
+    // Add eventListener: change cursor back and remove popup 
     map.on('mouseleave', 'buildings_age', function() {
         map.getCanvas().style.cursor = '';
         popup.remove();
