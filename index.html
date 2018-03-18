@@ -115,8 +115,19 @@
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
 
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = '<h3>' + e.features[0].properties.address + '</h3><p>' + e.features[0].properties.year + '</p>';
+        // Create an array of all the features from the layer
+        var features = map.queryRenderedFeatures(e.point, {
+          layers: ['layer-name-here'] // replace this with the name of the layer
+        });
+        if (!features.length) {
+          return;
+        }
+        // Select the first feature
+        var feature = features[0];
+
+        // Create coordinates and popup text
+        var coordinates = feature.geometry.coordinates.slice();
+        var description = '<h3>' + feature.properties.address + '</h3><p>' + feature.properties.year + '</p>';
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -132,7 +143,7 @@
             .addTo(map);
     });
 
-    // Add eventListener: change cursor back and remove popup 
+    // Add eventListener: change cursor back and remove popup
     map.on('mouseleave', 'buildings_age', function() {
         map.getCanvas().style.cursor = '';
         popup.remove();
