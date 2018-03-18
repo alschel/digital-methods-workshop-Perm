@@ -105,17 +105,17 @@
 
     // Popups
     // Create a popup, but don't add it to the map yet.
-    /*var popup = new mapboxgl.Popup({
+    var popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false
-    });*/
+    });
 
     // Add eventListener: 1st arg - type of eventListener, 2nd - layer id, 3d - function
     map.on('mouseenter', 'buildings_age', function(e) {
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
-        new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
+
+        popup.setLngLat(e.lngLat)
             .setHTML(e.features[0].properties.address)
             .addTo(map);
 
