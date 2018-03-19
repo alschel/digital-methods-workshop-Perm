@@ -35,10 +35,26 @@
         margin-right: 5px;
         z-index: 1;
     }
+    #legend {
+        padding: 10px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+        line-height: 18px;
+        height: 150px;
+        margin-bottom: 40px;
+        width: 100px;
+    }
+    .legend-key {
+        display:inline-block;
+        border-radius: 20%;
+        width: 10px;
+        height: 10px;
+        margin-right: 5px;
+    }
     </style>
   </head>
   <body>
     <div id='map'></div>
+    <div class='map-overlay' id='legend'></div>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWxzY2hlbCIsImEiOiI0MGQxMGFmY2ViZTBhMjk5NDA1YTg2NzIxZjQyZWE2ZSJ9.LiQjz2oMBtEEPbhjGV-ogw';
     /*var bounds = [
@@ -56,8 +72,29 @@
         //maxBounds: bounds
     });
 
-    map.on('load', function() {
+    // Create legend
+    var layers = ['до 1900', '1900-1910', '1910-1920', '1920-1930', '1930-1940', '1940-1950', '1960-1970',
+    '1980-1990', '1990-2000', '2000-2010', '2010 +'];
+    var colors = ['#FDE725', '#BCDF27', '#7AD151', '#43BF71', '#22A884', '#21908C', '#2A788E', '#35608D',
+    '#414487', '#482576', '#440154'];
 
+    for (i = 0; i < layers.length; i++) {
+      var layer = layers[i];
+      var color = colors[i];
+      var item = document.createElement('div');
+      var key = document.createElement('span');
+      key.className = 'legend-key';
+      key.style.backgroundColor = color;
+
+      var value = document.createElement('span');
+      value.innerHTML = layer;
+      item.appendChild(key);
+      item.appendChild(value);
+      legend.appendChild(item);
+    }
+
+    // Add layer below labels
+    map.on('load', function() {
       // If we just add the layer, it will cover all the labels.
       // To add layers below labels, first, let's create an arrow of label layers from the default style
       var layers = map.getStyle().layers;
@@ -69,7 +106,6 @@
               break;
           }
       };
-
       // Add layer with buildings
       map.addLayer({
         'id': 'buildings_age',
@@ -145,6 +181,10 @@
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
+
+
+
+
     </script>
   </body>
 </html>
