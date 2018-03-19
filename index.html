@@ -61,8 +61,8 @@
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWxzY2hlbCIsImEiOiI0MGQxMGFmY2ViZTBhMjk5NDA1YTg2NzIxZjQyZWE2ZSJ9.LiQjz2oMBtEEPbhjGV-ogw';
     var bounds = [
-        [55.2, 57],   // Southwest
-        [57.2, 59]    // Northeast
+        [55.5, 57],   // Southwest
+        [57, 59]    // Northeast
     ];
     var map = new mapboxgl.Map({
         container: 'map',
@@ -71,7 +71,7 @@
         zoom: 11,
         minZoom: 9,
         maxZoom: 18,
-        pitch: 20,
+        pitch: 30,
         maxBounds: bounds
     });
 
