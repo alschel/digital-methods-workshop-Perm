@@ -45,6 +45,13 @@
       width: 120px;
     }
 
+    #title {
+      top: 0;
+      height: 50px;
+      margin-top: 20px;
+      width: 170px;
+    }
+
     .legend-key {
       display: inline-block;
       border-radius: 20%;
@@ -57,6 +64,7 @@
   </head>
   <body>
     <div id='map'></div>
+    <div class='map-overlay' id='title'><h2>Perm Buildings Age</h2></div>
     <div class='map-overlay' id='legend'></div>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWxzY2hlbCIsImEiOiI0MGQxMGFmY2ViZTBhMjk5NDA1YTg2NzIxZjQyZWE2ZSJ9.LiQjz2oMBtEEPbhjGV-ogw';
@@ -66,8 +74,8 @@
     ];
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/dark-v9',
-        center: [56.254151, 57.995681],
+        style: 'mapbox://styles/alschel/cjeyljw4y3th02sobpnjtnlio',
+        center: [56.247800, 57.993994],
         zoom: 12,
         minZoom: 9,
         maxZoom: 18,
