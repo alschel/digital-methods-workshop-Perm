@@ -23,33 +23,36 @@
         bottom: 0;
         width: 100%;
     }
+
+    /* Set rules for how legend will be displayed on the page */
     .map-overlay {
-        position: absolute;
-        width: 180px;
-        top: 0;
-        left: 10px;
-        padding: 10px;
-        margin-left: 5px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        margin-right: 5px;
-        z-index: 1;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.8);
+      margin-right: 20px;
+      font-family: Arial, sans-serif;
+      overflow: auto;
+      border-radius: 3px;
     }
+
     #legend {
-        padding: 10px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.10);
-        line-height: 18px;
-        height: 150px;
-        margin-bottom: 40px;
-        width: 100px;
+      padding: 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      line-height: 18px;
+      height: 150px;
+      margin-bottom: 40px;
+      width: 100px;
     }
+
     .legend-key {
-        display:inline-block;
-        border-radius: 20%;
-        width: 10px;
-        height: 10px;
-        margin-right: 5px;
+      display: inline-block;
+      border-radius: 20%;
+      width: 10px;
+      height: 10px;
+      margin-right: 5px;
     }
+
     </style>
   </head>
   <body>
@@ -93,7 +96,7 @@
       legend.appendChild(item);
     }
 
-    // Add layer below labels
+    // Add layer (below labels)
     map.on('load', function() {
       // If we just add the layer, it will cover all the labels.
       // To add layers below labels, first, let's create an arrow of label layers from the default style
