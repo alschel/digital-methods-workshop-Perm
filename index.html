@@ -60,19 +60,19 @@
     <div class='map-overlay' id='legend'></div>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWxzY2hlbCIsImEiOiI0MGQxMGFmY2ViZTBhMjk5NDA1YTg2NzIxZjQyZWE2ZSJ9.LiQjz2oMBtEEPbhjGV-ogw';
-    /*var bounds = [
-        [-75.04728500751165, 39.68392799015035],
-        [-72.91058699000139, 41.87764500765852]
-    ];*/
+    var bounds = [
+        [55.3, 58.5],
+        [57.2, 57.5]
+    ];
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v9',
         center: [56.229398, 58.010374],
-        zoom: 10,
+        zoom: 11,
         minZoom: 9,
         maxZoom: 18,
-        pitch: 0
-        //maxBounds: bounds
+        pitch: 20,
+        maxBounds: bounds
     });
 
     // Add layer (below labels)
