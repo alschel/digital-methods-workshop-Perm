@@ -75,27 +75,6 @@
         //maxBounds: bounds
     });
 
-    // Create legend
-    var layers = ['до 1900', '1900-1910', '1910-1920', '1920-1930', '1930-1940', '1940-1950', '1960-1970',
-    '1980-1990', '1990-2000', '2000-2010', '2010 +'];
-    var colors = ['#FDE725', '#BCDF27', '#7AD151', '#43BF71', '#22A884', '#21908C', '#2A788E', '#35608D',
-    '#414487', '#482576', '#440154'];
-
-    for (i = 0; i < layers.length; i++) {
-      var layer = layers[i];
-      var color = colors[i];
-      var item = document.createElement('div');
-      var key = document.createElement('span');
-      key.className = 'legend-key';
-      key.style.backgroundColor = color;
-
-      var value = document.createElement('span');
-      value.innerHTML = layer;
-      item.appendChild(key);
-      item.appendChild(value);
-      legend.appendChild(item);
-    }
-
     // Add layer (below labels)
     map.on('load', function() {
       // If we just add the layer, it will cover all the labels.
@@ -145,6 +124,27 @@
     // 'overlays' anywhere in the layer stack.
     // Insert the layer beneath the first symbol layer.
        }, firstSymbolId);
+
+       // Create legend
+       var layers = ['до 1900', '1900-1910', '1910-1920', '1920-1930', '1930-1940', '1940-1950', '1960-1970',
+       '1980-1990', '1990-2000', '2000-2010', '2010 +'];
+       var colors = ['#FDE725', '#BCDF27', '#7AD151', '#43BF71', '#22A884', '#21908C', '#2A788E', '#35608D',
+       '#414487', '#482576', '#440154'];
+
+       for (i = 0; i < layers.length; i++) {
+         var layer = layers[i];
+         var color = colors[i];
+         var item = document.createElement('div');
+         var key = document.createElement('span');
+         key.className = 'legend-key';
+         key.style.backgroundColor = color;
+
+         var value = document.createElement('span');
+         value.innerHTML = layer;
+         item.appendChild(key);
+         item.appendChild(value);
+         legend.appendChild(item);
+       }
     });
 
     // Popups
@@ -184,9 +184,6 @@
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
-
-
-
 
     </script>
   </body>
