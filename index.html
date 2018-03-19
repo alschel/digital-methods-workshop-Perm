@@ -12,6 +12,11 @@
         margin: 0;
         padding: 0;
     }
+
+    p {
+      font-weight: bold;
+    }
+
     #map {
         position: absolute;
         top: 0;
@@ -126,7 +131,7 @@
         // Select the first feature
         var feature = features[0];
         // Create popup text
-        var description = '<h3>' + feature.properties.address + '</h3><p>' + feature.properties.year + '</p>';
+        var description = '<p>' + feature.properties.address + '</p><p>' + feature.properties.year + '</p>';
 
         // Populate the popup and set its coordinates
         // based on the feature found.
