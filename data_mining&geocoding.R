@@ -1,6 +1,6 @@
 # Buildings Age Map of Perm
 
-# Author: Alexander Sheludko, Institute of Geography, RAS
+# Author: Alexander Sheludkov, Institute of Geography, RAS
 # Date: 14 March 2018
 
 # Description:
@@ -12,14 +12,29 @@ library(sp)
 library(rgdal)
 library(rvest)
 library(dplyr)
+library(tidyr)
 library(stringr)
 library(ggplot2)
 library(RColorBrewer)
 library(readr)
+library(jsonlite)
 
 # ==============
 # 1. Data mining
 # ==============
+
+# =================================
+# 1.1. Objects of cultural heritage
+
+# Source: Russian Ministry of Culture
+
+# Read the data
+heritage <- read_csv("data/heritage.csv")
+
+# ========================
+# 1.2. Apartment buildings
+
+# Source: reformagkh.ru
 
 # tid - id of the city. We can find it from the href 
 # There are 6 753 buildings
@@ -61,7 +76,8 @@ res %>% ggplot(aes(year))+
   geom_histogram(aes(), binwidth = 2)+
   labs(y = "Number of buildings", x = "Year")+
   scale_x_continuous(breaks = seq(1850, 2017, 10))
-  
+
+
 # ============
 # 2. Geocoding
 # ============
@@ -93,19 +109,21 @@ for (n in 1:nrow(res)) {
   Sys.sleep(1)
 }
 
-# Разобьем строку координат в отдельные столбцы Lat и Lon
+# Split coords column into Lat and Lon
 perm_buildings_geocoded <- separate(perm_buildings,
-                                    coords, # столбец для деления
-                                    into = c("Lon", "Lat"), # названия новых столбцов
-                                    sep = " ", # основание для разделения
-                                    remove = TRUE, # удаляем столбец coords
-                                    convert = TRUE) # применяем к новым значениям функцию type.convert (автоматически определяет тип данных)
-
-perm_buildings_geocoded %>% summary() # 293 не нашлись
+                                    coords, # column to be splitted
+                                    into = c("Lon", "Lat"), # new columns' names
+                                    sep = " ", # separator
+                                    remove = TRUE, # remove splitted column
+                                    convert = TRUE) # default type conversion
+# Check the results
+perm_buildings_geocoded %>% summary()
 # Remove NAs
 perm_buildings_geocoded %>% 
   filter(!is.na(Lon)) -> perm_buildings_geocoded
 
+# Add heritage data
+perm_buildings_geocoded %>% rbind(., heritage_geocoded) -> perm_buildings_geocoded
 
 # Save the results in csv file
 write_csv(perm_buildings_geocoded, "data/perm_buildings_geocoded.csv")
@@ -119,8 +137,8 @@ write_csv(perm_buildings_geocoded, "data/perm_buildings_geocoded.csv")
 # Now we need to combine osm polygons with "year" and "address" data from points 
 
 # 3.1. Read the data
-points <- readOGR("data/perm_buildings.geojson") # geocoded points
-polygons <- readOGR("data/OSM-data.geojson")     # osm polygons
+points <- readOGR("data/points.geojson")     # geocoded points
+polygons <- readOGR("data/polygons.geojson") # osm polygons
 
 # 3.2. Join polygons with data 
 # Extract data from points overlaying over polygons 
@@ -132,5 +150,15 @@ polygons@data$address <- points_data$address
 perm_buildings_osm_year <- polygons[!is.na(polygons@data$year), ]
 
 # 3.3. Save SpatilaPolygonsDataFrame as GeoJSON file
-writeOGR(perm_buildings_osm_year, "data/perm_buildings_osm-year.geojson", 
-         layer = "perm_buildings_osm-year.geojson", driver = "GeoJSON", overwrite_layer = T)
+writeOGR(perm_buildings_osm_year, "data/perm_buildings_age.geojson", 
+         layer = "perm_buildings_age.geojson", driver = "GeoJSON", overwrite_layer = T)
+
+# # 3.4. Reproject to Web Mercator
+# # Mapbox accept only Web Mercator (EPSG:3857) data, so let's reproject our data and save as new file
+# 
+# EPSG3857 <- "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs"
+# perm_buildings_osm_year %>% 
+#   spTransform(x = ., CRSobj = EPSG3857) -> perm_forMapbox
+# 
+# writeOGR(perm_forMapbox, "data/perm_forMapbox.geojson", 
+#          layer = "perm_forMapbox.geojson", driver = "GeoJSON", overwrite_layer = T, encoding = "UTF-8")
