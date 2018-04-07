@@ -122,6 +122,9 @@ perm_buildings_geocoded %>% summary()
 perm_buildings_geocoded %>% 
   filter(!is.na(Lon)) -> perm_buildings_geocoded
 
+# Add date_label column
+perm_buildings_geocoded %>% mutate(date_label = year) -> perm_buildings_geocoded
+
 # Add heritage data
 perm_buildings_geocoded %>% rbind(., heritage_geocoded) -> perm_buildings_geocoded
 
@@ -152,13 +155,3 @@ perm_buildings_osm_year <- polygons[!is.na(polygons@data$year), ]
 # 3.3. Save SpatilaPolygonsDataFrame as GeoJSON file
 writeOGR(perm_buildings_osm_year, "data/perm_buildings_age.geojson", 
          layer = "perm_buildings_age.geojson", driver = "GeoJSON", overwrite_layer = T)
-
-# # 3.4. Reproject to Web Mercator
-# # Mapbox accept only Web Mercator (EPSG:3857) data, so let's reproject our data and save as new file
-# 
-# EPSG3857 <- "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs"
-# perm_buildings_osm_year %>% 
-#   spTransform(x = ., CRSobj = EPSG3857) -> perm_forMapbox
-# 
-# writeOGR(perm_forMapbox, "data/perm_forMapbox.geojson", 
-#          layer = "perm_forMapbox.geojson", driver = "GeoJSON", overwrite_layer = T, encoding = "UTF-8")

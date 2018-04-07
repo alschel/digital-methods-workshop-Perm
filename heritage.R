@@ -21,10 +21,10 @@ json$data$general %>% head()
 heritage <- bind_cols(name = json$data$general$name,
                       type = json$data$general$objectType$value,
                       region = json$data$general$region$value,
-                      date = json$data$general$createDate,
+                      date_label = json$data$general$createDate,
                       address = json$data$general$address$fullAddress) %>% 
   filter(region == "Пермский край", !is.na(address), str_detect(address, "г. Пермь"),
-         !is.na(date), type != "Достопримечательное место") %>% select(-type, -region)
+         !is.na(date_label), type != "Достопримечательное место") %>% select(-type, -region)
 
 # Manually get rid of monuments, cemetries etc. 
 heritage %>% arrange(name) %>% slice(-c(1,2, 11:18, 38, 49, 52, 76:92, 94:98, 102, 107, 111, 116, 117, 123)) ->
@@ -35,7 +35,7 @@ heritage %>% mutate(year = str_extract(date_label, "[0-9]{4}")) -> heritage
 
 # Since for some buildings we do not know the exact construction year, 
 # we just code them as 1901 (beginning of the XX century), 1801 (XVIII and XIX century).
-heritage %>% arrange(date) %>% slice(-c(1:6)) -> heritage
+heritage %>% arrange(date_label) %>% slice(-c(1:6)) -> heritage
 heritage[c(1:6, 61:75, 79, 84:87), 4] <- "1801"
 heritage[c(76:78, 80:83), 4] <- "1901"
 
@@ -43,7 +43,7 @@ heritage[c(76:78, 80:83), 4] <- "1901"
 heritage$year <- as.integer(heritage$year)
 
 # Keep only address and year columns
-heritage %>% select(address, year) -> heritage
+heritage %>% select(address, year, date_label) -> heritage
 
 # Save the file
 write_csv(heritage, "data/heritage.csv")
