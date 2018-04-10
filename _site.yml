@@ -1,4 +1,4 @@
-name: 'test'
+name: ''
 navbar:
   left:
   - icon: fa-home
@@ -8,7 +8,7 @@ navbar:
     - text: test
       href: Perm-workshop-presentation.html
     - text: map
-      href: index.html
+      href: map.html
 output_dir: docs
 output:
   html_document:
