@@ -145,10 +145,12 @@ polygons <- readOGR("data/polygons.geojson") # osm polygons
 
 # 3.2. Join polygons with data 
 # Extract data from points overlaying over polygons 
-points_data <- over(polygons, points[,c("address", "year")])
+points_data <- over(polygons, points[,c("address", "year", "date_label")])
 # Assign data to polygons attribute dataframe
 polygons@data$year <- points_data$year
 polygons@data$address <- points_data$address
+polygons@data$datelabel <- points_data$date_label
+polygons@data %>% select(address, year, datelabel) -> polygons@data
 # Remove buildings with NA year
 perm_buildings_osm_year <- polygons[!is.na(polygons@data$year), ]
 

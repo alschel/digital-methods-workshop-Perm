@@ -1,0 +1,29 @@
+---
+title: "Digital methods in urban studies. Part 2"
+author: "Alexander Sheludkov"
+date: "09 04 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Part 2. Building Age Map of Perm
+
+### 2.1 Description
+
+Urban morphology refers to "the study of the physical (or built) fabric of urban form, and the people and processes shaping it" (<http://www.urbanform.org/glossary.html>)  
+
+Perm, 1910  
+![](resources/Perm_from_Gorodskie_Gorki_(1910).jpg)
+by Sergey Prokudin-Gorsky
+*Source*: <https://en.wikipedia.org/wiki/Perm#/media/File:Sergei_Mikhailovich_Prokudin-Gorskii_-_General_view_of_the_city_of_Perm_from_Gorodskie_Gorki_(1910).jpg>
+
+Perm was founded in 1723 during the rule of Tsar Peter the Great. In XIX century the city became a major trade and industrial center. Today the population of the city exceeds 1 million.  
+We will study the urban growth:  the historical core, main directions of the growth, old and new districts.We will study form and spatial structure of the city, revealing history of its formation and spatial growth.
+
+Required soft:
+1) R: https://cran.r-project.org/
+ + Rstudio: https://www.rstudio.com/products/rstudio/download/#download
+2) QGIS: https://www.qgis.org/
