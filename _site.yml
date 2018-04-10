@@ -2,7 +2,7 @@ name: 'test'
 navbar:
   left:
   - icon: fa-home
-    href: index.html
+    href: Perm-workshop-presentation.html
   - text: main
     menu:
     - text: test
