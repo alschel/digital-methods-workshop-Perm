@@ -6,6 +6,8 @@ navbar:
   - text: main
     menu:
     - text: test
+      href: Perm-workshop-presentation.html
+    - text: map
       href: index.html
 output_dir: docs
 output:
@@ -18,7 +20,3 @@ output:
     toc_float: yes
     smooth_scroll: no
     df_print: paged
-    include:
-      after_body: footer.html
-    lib_dir: site_libs
-    self_contained: no
