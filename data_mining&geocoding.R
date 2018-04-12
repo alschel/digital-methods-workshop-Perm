@@ -1,23 +1,9 @@
 # Buildings Age Map of Perm
-
 # Author: Alexander Sheludkov, Institute of Geography, RAS
-# Date: 14 March 2018
+# Date: 18 April 2018
 
-# Description:
-# ....
-
-# libraries
-
-library(sp)
-library(rgdal)
-library(rvest)
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(ggplot2)
-library(RColorBrewer)
-library(readr)
-library(jsonlite)
+# Reguired packages
+source("Istall_required_packages.R")
 
 # ==============
 # 1. Data mining
@@ -29,7 +15,7 @@ library(jsonlite)
 # Source: Russian Ministry of Culture
 
 # Read the data
-heritage <- read_csv("data/heritage.csv")
+heritage_geocoded <- read_csv("data/heritage_geocoded.csv")
 
 # ========================
 # 1.2. Apartment buildings
@@ -71,12 +57,16 @@ res[res$address == "г. Пермь, ул. Серпуховская, д. 15", 2] 
 # Remove all na rows
 res %>% filter(!is.na(year)) -> res
 
+# save as csv file
+write_csv(res, "data/res.csv")
+
+# res <- read_csv("data/res.csv")
+
 # Check the distirbution
 res %>% ggplot(aes(year))+
-  geom_histogram(aes(), binwidth = 2)+
+  geom_histogram(binwidth = 2)+
   labs(y = "Number of buildings", x = "Year")+
   scale_x_continuous(breaks = seq(1850, 2017, 10))
-
 
 # ============
 # 2. Geocoding
@@ -84,9 +74,9 @@ res %>% ggplot(aes(year))+
 
 perm_buildings <- data_frame()
 
-# Цикл запросов к геокодеру Яндекс
+# Loop with requests to Yandex Geocoder
 for (n in 1:nrow(res)) {
-  # Watch the steps
+  # the progress
   print(n)
   # Specifying the url for desired website to be scrapped
   url <- paste0("https://geocode-maps.yandex.ru/1.x/?geocode=", res[n, 1])
@@ -127,6 +117,10 @@ perm_buildings_geocoded %>% mutate(date_label = year) -> perm_buildings_geocoded
 
 # Add heritage data
 perm_buildings_geocoded %>% rbind(., heritage_geocoded) -> perm_buildings_geocoded
+
+# Take a look of the results
+# perm_buildings_geocoded <- read_csv("data/perm_buildings_geocoded.csv")
+head(perm_buildings_geocoded)
 
 # Save the results in csv file
 write_csv(perm_buildings_geocoded, "data/perm_buildings_geocoded.csv")

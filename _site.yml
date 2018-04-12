@@ -2,13 +2,13 @@ name: ''
 navbar:
   left:
   - icon: fa-home
-    href: Perm-workshop-presentation.html
-  - text: main
-    menu:
-    - text: test
-      href: Perm-workshop-presentation.html
-    - text: map
-      href: map.html
+    href: title.html
+  - text: Part 1. Basic concepts. The case
+    href: Part-1.html
+  - text: Part 2. Data mining. HTTP requests
+    href: Part-2.html
+  - text: Final
+    href: map.html
 output_dir: docs
 output:
   html_document:
