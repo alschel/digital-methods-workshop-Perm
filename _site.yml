@@ -3,7 +3,7 @@ output_dir: docs
 navbar:
   left:
   - icon: fa-home
-    href: title.html
+    href: index.html
   - text: Part 1. Basic concepts. The case
     href: Part-1.html
   - text: Part 2. Data mining. Geocoding
