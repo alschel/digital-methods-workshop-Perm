@@ -1,4 +1,5 @@
-name: ''
+name: 'Workshop in Perm'
+output_dir: docs
 navbar:
   left:
   - icon: fa-home
@@ -9,7 +10,6 @@ navbar:
     href: Part-2.html
   - text: Final
     href: map.html
-output_dir: docs
 output:
   html_document:
     theme: spacelab
