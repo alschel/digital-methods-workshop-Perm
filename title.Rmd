@@ -2,7 +2,7 @@
 title: "Digital methods in urban studies"
 author: "Alexander Sheludkov"
 date: "18 04 2018"
-output: 
+output:
   html_document:
     toc: false
 ---
@@ -23,8 +23,8 @@ Only Practice, Only Hardcore! During the workshop we will learn what spatial dat
 ```{r install_packages, results="hide", message=FALSE}
 source("Istall_required_packages.R")
 ```
-2) QGIS <https://www.qgis.org/> (2.8, not 3.0)
+2) QGIS <https://www.qgis.org/> (2.18, not 3.0)  
++ QuickMapServices module  
 3) SelectorGadget (browser tool) <http://selectorgadget.com>
-4) Text editor (Atom <https://atom.io>)
 
 ***

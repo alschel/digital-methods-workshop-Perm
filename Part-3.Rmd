@@ -1,7 +1,7 @@
 ---
 title: "Digital methods in urban studies. Part 3"
 author: "Alexander Sheludkov"
-date: "12 04 2018"
+date: "18 04 2018"
 output:
   html_document:
     toc: true
@@ -15,25 +15,111 @@ knitr::opts_chunk$set(echo = TRUE)
 source("Istall_required_packages.R")
 ```
 
-## Part 3. Data mining http requests  
+## Part 3. Spatial data manipulation and analysis
 
+**Algorithm**:  
+*Create SpatailPoints object 
+*Load OpenStreetMap data
+*Assign to OSM polygons data from points 
 
-## R Markdown
+### 3.1. Creating vector layer from csv 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This is where we start using **QGIS**.  
+  
+*Load csv file*:  
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+**Layers -> Add layer -> add CSV (pick perm-buildings-geocoded.csv)**  
 
-```{r cars}
-summary(cars)
+Choose CRS (Coordinate Reference System): **WGS84 (EPSG:4326)**  
+
+Now we have real spatial object! To see the attributes, click on table image in the menu.  
+
+*To save the file*:  
+
+**Right-click on layer in Layers Panel -> Save As -> Choose “GeoJSON” and give the name (“points”)**
+
+***
+
+### 3.2. Load OpenStreetMap data  
+
+**OpenStreetMap**  
+
+Go to <http://overpass-turbo.eu> -> Search for Perm location (define bounding box)
+
+**Open Query Wizard -> "building" -> build query -> Run**
+
+**Export -> Download as GeoJSON**
+
+Copy file to your "data" directory and open in QGIS (only polygon layer):
+
+**Layers -> Add layer -> Add vector layer -> choose the file**  
+  
+Since, we do not need all the attribute information from OSM, just delete it (keep only ID column):
+
+**Right-click on layer in Layers Panel -> Properties -> Fields -> Change -> Choose and delete the fields**  
+  
+Save the file:  
+
+**Right-click on layer in Layers Panel -> Save As -> Choose “GeoJSON” and give the name (“polygons”)**
+
+***
+
+### 3.3. Load OpenStreetMap data  
+
+Now we need to match the data from the point and polygonal layers. If a point overlaps a polygon, we assign the data from the point to this polygon.  
+Switch to R  
+
+```{r read sp data, echo=TRUE, message=FALSE, warning=FALSE}
+# Read spatial data
+points <- readOGR("data/points.geojson")     # geocoded points
+polygons <- readOGR("data/polygons.geojson") # osm polygons
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+Take a look at them
+```{r sp data overview, echo=TRUE, message=FALSE}
+points
+polygons
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+We can see class, the number of features (points or polygons), CRS and summary of the data  
+  
+To access SpatialObjects* data use @  
+  
+To extract data from the overlapping objects use `over()`
+
+```{r over, echo=TRUE, eval=FALSE}
+points_data <- over(polygons, 
+                    points[,c("address", "year", "date_label")])
+```
+
+The resulting data.frame has the same number of observations as the number of features in polygon layer
+```{r points_data nrow, echo=TRUE, eval=FALSE}
+points_data %>% nrow()
+```
+
+Now we can just assign data from `points_data` to `polygons@data` column by column
+
+```{r polygons data, echo=TRUE, message=FALSE, eval=FALSE}
+# Create new 
+polygons@data$year <- points_data$year
+polygons@data$address <- points_data$address
+polygons@data$datelabel <- points_data$date_label
+polygons@data %>% select(address, year, datelabel) -> polygons@data
+```
+
+Remove buildings with no data
+```{r remove NA buildings, echo=TRUE, message=FALSE, eval=FALSE}
+# Remove buildings with NA year
+perm_buildings_osm_year <- polygons[!is.na(polygons@data$year), ]
+```
+
+There only 4509 features left  
+
+Save the polygon layer as new GeoJSON file
+```{r save file, echo=TRUE, message=FALSE, eval=FALSE}
+writeOGR(obj = perm_buildings_osm_year, dsn = "data/perm_buildings_age.geojson", 
+         layer = "perm_buildings_age.geojson", driver = "GeoJSON", overwrite_layer = T)
+```
+
+
+

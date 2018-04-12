@@ -6,9 +6,13 @@ navbar:
     href: title.html
   - text: Part 1. Basic concepts. The case
     href: Part-1.html
-  - text: Part 2. Data mining. HTTP requests
+  - text: Part 2. Data mining. Geocoding
     href: Part-2.html
-  - text: Final
+  - text: Part 3. Spatial data manipulation
+    href: Part-3.html
+  - text: Part 4. Spatial data visualization
+    href: Part-4.html
+  - text: Vis in Mapbox
     href: map.html
 output:
   html_document:

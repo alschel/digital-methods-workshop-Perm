@@ -2,7 +2,7 @@
 # and Pratik Patil for the package installation code ( http://stackoverflow.com/a/29622385 )
 
 # Specify the list of required packages to be installed and load  
-Required_Packages <- c("sp", "raster",                                            # spatial data 
+Required_Packages <- c("sp", "raster", "rgdal",                                   # spatial data 
                        "RColorBrewer", "lattice", "latticeExtra", "rasterVis",    # spatial data vis
                        "dplyr", "tidyr", "readr",                                 # data manupulation
                        "rvest",                                                   # http requests and html parcing
