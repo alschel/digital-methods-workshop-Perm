@@ -12,7 +12,7 @@
 <meta name="author" content="Alexander Sheludkov" />
 
 
-<title>Digital methods in urban studies. Part 3</title>
+<title>Part 3. Spatial data manipulation</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -312,7 +312,7 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="Part-1.html">Part 1. Basic concepts. The case</a>
+  <a href="Part-1.html">Part 1. Basic concepts</a>
 </li>
 <li>
   <a href="Part-2.html">Part 2. Data mining. Geocoding</a>
@@ -324,7 +324,7 @@ div.tocify {
   <a href="Part-4.html">Part 4. Spatial data visualization</a>
 </li>
 <li>
-  <a href="map.html">Vis in Mapbox</a>
+  <a href="map.html">Mapbox map</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -338,31 +338,38 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Digital methods in urban studies. Part 3</h1>
+<h1 class="title toc-ignore">Part 3. Spatial data manipulation</h1>
 <h4 class="author"><em>Alexander Sheludkov</em></h4>
 <h4 class="date"><em>18 04 2018</em></h4>
 
 </div>
 
 
-<div id="part-3.-spatial-data-manipulation-and-analysis" class="section level2">
-<h2>Part 3. Spatial data manipulation and analysis</h2>
+<hr />
 <p><strong>Algorithm</strong>:<br />
-<em>Create SpatailPoints object </em>Load OpenStreetMap data *Assign to OSM polygons data from points</p>
+* Create SpatailPoints object<br />
+* Load OpenStreetMap data<br />
+* Assign to OSM polygons data from points</p>
 <div id="creating-vector-layer-from-csv" class="section level3">
 <h3>3.1. Creating vector layer from csv</h3>
-<p>This is where we start using <strong>QGIS</strong>.</p>
+This is where we start using <strong>QGIS</strong><br />
+
+<div style="width:200px; height:200px">
+<a href="https://www.qgis.org/"><img src="resources/QGis_Logo.png" /></a>
+</div>
 <p><em>Load csv file</em>:</p>
 <p><strong>Layers -&gt; Add layer -&gt; add CSV (pick perm-buildings-geocoded.csv)</strong></p>
 <p>Choose CRS (Coordinate Reference System): <strong>WGS84 (EPSG:4326)</strong></p>
 <p>Now we have real spatial object! To see the attributes, click on table image in the menu.</p>
 <p><em>To save the file</em>:</p>
-<p><strong>Right-click on layer in Layers Panel -&gt; Save As -&gt; Choose “GeoJSON” and give the name (“points”)</strong></p>
+<p><strong>Right-click on layer in Layers Panel -&gt; Save As -&gt; Choose “GeoJSON” and give it the name (“points”)</strong></p>
 <hr />
 </div>
 <div id="load-openstreetmap-data" class="section level3">
 <h3>3.2. Load OpenStreetMap data</h3>
-<p><strong>OpenStreetMap</strong></p>
+<p><a href="https://www.openstreetmap.org"><strong>OpenStreetMap</strong></a></p>
+<p>OpenStreetMap is a free, editable map of the whole world that is being built by volunteers largely from scratch and released with an open-content license.</p>
+<p>Let’s load the data with <em>buildings</em> tag:</p>
 <p>Go to <a href="http://overpass-turbo.eu" class="uri">http://overpass-turbo.eu</a> -&gt; Search for Perm location (define bounding box)</p>
 <p><strong>Open Query Wizard -&gt; “building” -&gt; build query -&gt; Run</strong></p>
 <p><strong>Export -&gt; Download as GeoJSON</strong></p>
@@ -374,8 +381,8 @@ div.tocify {
 <p><strong>Right-click on layer in Layers Panel -&gt; Save As -&gt; Choose “GeoJSON” and give the name (“polygons”)</strong></p>
 <hr />
 </div>
-<div id="load-openstreetmap-data-1" class="section level3">
-<h3>3.3. Load OpenStreetMap data</h3>
+<div id="combine-polygon-geometry-with-points-data" class="section level3">
+<h3>3.3. Combine polygon geometry with points data</h3>
 <p>Now we need to match the data from the point and polygonal layers. If a point overlaps a polygon, we assign the data from the point to this polygon.<br />
 Switch to R</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read spatial data</span>
@@ -413,7 +420,7 @@ points &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class
 <p>To extract data from the overlapping objects use <code>over()</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">points_data &lt;-<span class="st"> </span><span class="kw">over</span>(polygons, 
                     points[,<span class="kw">c</span>(<span class="st">&quot;address&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;date_label&quot;</span>)])</code></pre></div>
-<p>The resulting data.frame has the same number of observations as the number of features in polygon layer</p>
+<p>The resulting data.frame has the same number of observations as the number of features in the polygon layer</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">points_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nrow</span>()</code></pre></div>
 <p>Now we can just assign data from <code>points_data</code> to <code>polygons@data</code> column by column</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create new </span>
@@ -429,8 +436,9 @@ perm_buildings_osm_year &lt;-<span class="st"> </span>polygons[<span class="op">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeOGR</span>(<span class="dt">obj =</span> perm_buildings_osm_year, <span class="dt">dsn =</span> <span class="st">&quot;data/perm_buildings_age.geojson&quot;</span>, 
          <span class="dt">layer =</span> <span class="st">&quot;perm_buildings_age.geojson&quot;</span>, <span class="dt">driver =</span> <span class="st">&quot;GeoJSON&quot;</span>, <span class="dt">overwrite_layer =</span> T)</code></pre></div>
 </div>
-</div>
 
+<br><br><br>
+<p><center> &copy; <b>2018</b> Alexander Sheludkov, Institute of Geography, RAS </center> </p>
 
 
 </div>

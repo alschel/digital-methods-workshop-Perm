@@ -12,7 +12,7 @@
 <meta name="author" content="Alexander Sheludkov" />
 
 
-<title>Digital methods in urban studies. Part 1</title>
+<title>Part 1. Basic concepts</title>
 
 <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -321,7 +321,7 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="Part-1.html">Part 1. Basic concepts. The case</a>
+  <a href="Part-1.html">Part 1. Basic concepts</a>
 </li>
 <li>
   <a href="Part-2.html">Part 2. Data mining. Geocoding</a>
@@ -333,7 +333,7 @@ div.tocify {
   <a href="Part-4.html">Part 4. Spatial data visualization</a>
 </li>
 <li>
-  <a href="map.html">Vis in Mapbox</a>
+  <a href="map.html">Mapbox map</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -347,16 +347,16 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Digital methods in urban studies. Part 1</h1>
+<h1 class="title toc-ignore">Part 1. Basic concepts</h1>
 <h4 class="author"><em>Alexander Sheludkov</em></h4>
 <h4 class="date"><em>18 04 2018</em></h4>
 
 </div>
 
 
+<hr />
 <p><strong>starting picture and epigraph</strong></p>
-<div id="part-1.-basic-concepts.-the-case" class="section level2">
-<h2>Part 1. Basic concepts. The case</h2>
+<hr />
 <div id="spatial-data" class="section level3">
 <h3>1.1. Spatial data</h3>
 <p>Distance - direction - spatial relations - geogrphical position - geographical context</p>
@@ -414,8 +414,8 @@ elev</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaflet)
 <span class="co"># Load leaflet map</span>
 <span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setView</span>(<span class="dt">lng =</span> <span class="fl">56.33</span>, <span class="dt">lat =</span> <span class="fl">58.3</span>, <span class="dt">zoom =</span> <span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>()</code></pre></div>
-<div id="htmlwidget-ad53a28a6e16de0e0227" style="width:100%;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ad53a28a6e16de0e0227">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[58.3,56.33],9,[]],"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-53d7dd84d4a471bd8cfd" style="width:100%;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-53d7dd84d4a471bd8cfd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[58.3,56.33],9,[]],"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
 <style></style>
 <p><strong>Other examples</strong>:<br />
 Population Density: <a href="http://luminocity3d.org/WorldPopDen/" class="uri">http://luminocity3d.org/WorldPopDen/</a><br />
@@ -473,8 +473,9 @@ Amsterdam: <a href="https://code.waag.org/buildings/#52.3663,4.8883,14" class="u
 <h3>More to know about spatial analysis in R:</h3>
 <p><a href="http://rspatial.org/index.html" class="uri">http://rspatial.org/index.html</a></p>
 </div>
-</div>
 
+<br><br><br>
+<p><center> &copy; <b>2018</b> Alexander Sheludkov, Institute of Geography, RAS </center> </p>
 
 
 </div>

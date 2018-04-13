@@ -1,5 +1,5 @@
 ---
-title: "Digital methods in urban studies. Part 2"
+title: "Part 2. Data mining. Geocoding"
 author: "Alexander Sheludkov"
 date: "18 04 2018"
 output: 
@@ -15,14 +15,13 @@ knitr::opts_chunk$set(echo = TRUE)
 source("Istall_required_packages.R")
 ```
 
-
-## Part 2. Data mining. Geocoding
+***
 
 ### 2.1. Data mining
 
 **Algorithm**:  
-*Scrap data from web-pages
-*Geocoding (find lon/lat coordinates)
+* Scrap data from web-pages  
+* Geocoding (find lon/lat coordinates)  
 
 #### 2.1.1. Load heritage data
 

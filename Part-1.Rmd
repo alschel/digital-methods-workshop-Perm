@@ -1,5 +1,5 @@
 ---
-title: "Digital methods in urban studies. Part 1"
+title: "Part 1. Basic concepts"
 author: "Alexander Sheludkov"
 date: "18 04 2018"
 output: 
@@ -12,9 +12,12 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+***
+
 **starting picture and epigraph**
 
-## Part 1. Basic concepts. The case 
+***
+
 ### 1.1. Spatial data
 
 Distance - direction - spatial relations - geogrphical position - geographical context

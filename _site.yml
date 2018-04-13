@@ -1,10 +1,10 @@
-name: 'Workshop in Perm'
+name: 'Perm Workshop'
 output_dir: docs
 navbar:
   left:
   - icon: fa-home
     href: index.html
-  - text: Part 1. Basic concepts. The case
+  - text: Part 1. Basic concepts
     href: Part-1.html
   - text: Part 2. Data mining. Geocoding
     href: Part-2.html
@@ -12,7 +12,7 @@ navbar:
     href: Part-3.html
   - text: Part 4. Spatial data visualization
     href: Part-4.html
-  - text: Vis in Mapbox
+  - text: Mapbox map
     href: map.html
 output:
   html_document:
@@ -24,3 +24,5 @@ output:
     toc_float: yes
     smooth_scroll: no
     df_print: paged
+    include:
+      after_body: footer.html

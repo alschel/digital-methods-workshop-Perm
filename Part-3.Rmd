@@ -1,5 +1,5 @@
 ---
-title: "Digital methods in urban studies. Part 3"
+title: "Part 3. Spatial data manipulation"
 author: "Alexander Sheludkov"
 date: "18 04 2018"
 output:
@@ -15,16 +15,18 @@ knitr::opts_chunk$set(echo = TRUE)
 source("Istall_required_packages.R")
 ```
 
-## Part 3. Spatial data manipulation and analysis
+***
 
 **Algorithm**:  
-*Create SpatailPoints object 
-*Load OpenStreetMap data
-*Assign to OSM polygons data from points 
+* Create SpatailPoints object  
+* Load OpenStreetMap data  
+* Assign to OSM polygons data from points  
 
 ### 3.1. Creating vector layer from csv 
 
-This is where we start using **QGIS**.  
+This is where we start using **QGIS**  
+<div style="width:200px; height:200px"><a href="https://www.qgis.org/">![](resources/QGis_Logo.png)</a></div>
+
   
 *Load csv file*:  
 
@@ -36,13 +38,17 @@ Now we have real spatial object! To see the attributes, click on table image in 
 
 *To save the file*:  
 
-**Right-click on layer in Layers Panel -> Save As -> Choose “GeoJSON” and give the name (“points”)**
+**Right-click on layer in Layers Panel -> Save As -> Choose “GeoJSON” and give it the name (“points”)**
 
 ***
 
 ### 3.2. Load OpenStreetMap data  
 
-**OpenStreetMap**  
+<a href="https://www.openstreetmap.org">**OpenStreetMap**</a>  
+
+OpenStreetMap is a free, editable map of the whole world that is being built by volunteers largely from scratch and released with an open-content license.  
+  
+Let's load the data with *buildings* tag:
 
 Go to <http://overpass-turbo.eu> -> Search for Perm location (define bounding box)
 
@@ -64,7 +70,7 @@ Save the file:
 
 ***
 
-### 3.3. Load OpenStreetMap data  
+### 3.3. Combine polygon geometry with points data  
 
 Now we need to match the data from the point and polygonal layers. If a point overlaps a polygon, we assign the data from the point to this polygon.  
 Switch to R  
@@ -92,7 +98,7 @@ points_data <- over(polygons,
                     points[,c("address", "year", "date_label")])
 ```
 
-The resulting data.frame has the same number of observations as the number of features in polygon layer
+The resulting data.frame has the same number of observations as the number of features in the polygon layer
 ```{r points_data nrow, echo=TRUE, eval=FALSE}
 points_data %>% nrow()
 ```

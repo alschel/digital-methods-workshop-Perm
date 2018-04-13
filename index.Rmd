@@ -16,8 +16,7 @@ Only Practice, Only Hardcore! During the workshop we will learn what spatial dat
 ***
 
 **Required software**:  
-1. R <https://cran.r-project.org/>
-  
+1. R <https://cran.r-project.org/>  
 + Rstudio <https://www.rstudio.com/products/rstudio/download/#download>    
 + packages
 ```{r install_packages, results="hide", message=FALSE}

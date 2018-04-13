@@ -1,5 +1,5 @@
 ---
-title: "Digital methods in urban studies. Part 4"
+title: "Part 4. Spatial data visualization"
 author: "Alexander Sheludkov"
 date: "18 04 2018"
 output:
@@ -12,21 +12,31 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Part 4. Spatial data visualization
+***
 
-### 4.1. ... in QGIS
+### 4.1. QGIS layout
 
 Load the data and style your map  
-**Right-click on layer in Layers Panel -> Properties -> Style**  
-
+**Right-click on layer in Layers Panel -> Properties -> Style -> Graduated -> column:year**  
+Choose color palette and breaks mode  
+  
 Print or export as image:  
 **Projects -> Create layout**  
-**Layout -> Add map -> Add legend**  
+**Layout -> Add map -> Add legend -> Export as image**  
 
-### 4.2. Carto or Mapbox
+![](resources/test_print.png)
 
-In Carto
-<https://alschel.carto.com/builder/7132bac8-b8c5-4fc5-834e-4149d1679f23/embed>
+### 4.2. Web-cartography
 
+<a href="https://carto.com">**Carto**</a>  
+<a href="https://www.mapbox.com">**Mapbox**</a>  
 
+**Algorithm**:  
+* Upload dataset   
+* Create map form dataset  
+* Style map  
+* Publish or Export the map  
 
+In Carto:  
+**Log in -> Your Dataset -> New Dataset -> Browse -> Choose file -> Connect data set**
+**Create and style your map**  
