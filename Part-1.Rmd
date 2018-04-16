@@ -22,8 +22,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Distance - direction - spatial relations - geogrphical position - geographical context
 
-*Classroom case*
-
 ### 1.2. Spatial data types
 
 Spatial phenomena can generally be thought of as either discrete locations (spatial objects) or as continuous phenomena, for example, elevation, temperature, population density, etc.
