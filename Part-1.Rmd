@@ -126,6 +126,8 @@ Cartogram - cartodiagrame
 
 ***
 
+**Average prices for housing** vs **"Edinaya Rossiya" election results** in *Moscow*
+
 ![](resources/ВыборыМосква2017.jpg)
 *Source*: <https://varlamov.ru/2427106.html>
 
