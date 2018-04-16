@@ -122,7 +122,14 @@ points(pts, pch = 20, col = "red", cex = 2)           # plot points
 
 **Spatial object** = **geometry** + **attributes**  
 
-Cartogram - cartodiagrame  
+Cartogram - cartodiagrame
+
+***
+
+![](resources/ВыборыМосква2017.jpg)
+*Source*: <https://varlamov.ru/2427106.html>
+
+***
 
 ![](resources/London.png)
 Source: <https://www.economist.com/news/britain/21644155-britain-bangladeshis-have-overtaken-pakistanis-credit-poor-job-market-when-they-arrived>  
