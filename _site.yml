@@ -12,7 +12,7 @@ navbar:
     href: Part-3.html
   - text: Part 4. Spatial data visualization
     href: Part-4.html
-  - text: Mapbox map
+  - text: Final MAP
     href: map.html
 output:
   html_document:
